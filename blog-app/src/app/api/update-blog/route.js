@@ -3,19 +3,26 @@ import Blog from "@/models/blog";
 import Joi from "joi";
 import { NextResponse } from "next/server";
 
-const AddNewBlog = Joi.object({
+const EditBlog = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required(),
 });
 
-export async function POST(req) {
+export async function PUT(req) {
   try {
     await connectToDB();
+    const { searchParams } = new URL(req.url);
+    const getCurrentBlogID = searchParams.get("id");
 
-    const extractBlogData = await req.json();
-    const { title, description } = extractBlogData;
+    if (!getCurrentBlogID) {
+      return NextResponse.json({
+        success: false,
+        message: "Blog ID is required",
+      });
+    }
 
-    const { error } = AddNewBlog.validate({
+    const { title, description } = await req.json();
+    const { error } = EditBlog.validate({
       title,
       description,
     });
@@ -27,11 +34,18 @@ export async function POST(req) {
       });
     }
 
-    const newlyCreatedBlogItem = await Blog.create(extractBlogData);
-    if (newlyCreatedBlogItem) {
+    const updateBlogByBlogID = await Blog.findOneAndUpdate(
+      {
+        _id: getCurrentBlogID,
+      },
+      { title, description },
+      { new: true }
+    );
+
+    if (updateBlogByBlogID) {
       return NextResponse.json({
         success: true,
-        message: "Blog added successfully",
+        message: "Blog is updated successfully",
       });
     } else {
       return NextResponse.json({

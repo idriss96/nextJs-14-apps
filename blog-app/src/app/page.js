@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
         </h2>
         <Link
           className="bg-white text-sm text-blue-700 font-semibold py-2 px-6 rounded"
-          href={'/blogs'}
+          href={"/blogs"}
         >
           Explore Blogs
         </Link>
