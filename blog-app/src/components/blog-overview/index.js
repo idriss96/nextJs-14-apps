@@ -13,7 +13,22 @@ function BlogOverview() {
   const [blogFormData, setBlogFormData] = useState(initialBlogFormData);
 
   console.log(blogFormData);
-  
+
+  const handleSaveBlogData = async () => {
+    try {
+      const apiResponse = await fetch('/api/add-blog', {
+        method: 'POST',
+        body: JSON.stringify(blogFormData),
+      });
+
+      const result = await apiResponse.json();
+      console.log(result);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+      setBlogFormData(initialBlogFormData);
+    }
+  };
 
   return (
     <AddNewBlog
@@ -23,6 +38,7 @@ function BlogOverview() {
       setLoading={setLoading}
       blogFormData={blogFormData}
       setBlogFormData={setBlogFormData}
+      handleSaveBlogData={handleSaveBlogData}
     />
   );
 }

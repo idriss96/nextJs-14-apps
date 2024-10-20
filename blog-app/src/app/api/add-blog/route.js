@@ -1,4 +1,5 @@
 import connectToDB from '@/database';
+import Blog from '@/models/blog';
 import Joi from 'joi';
 import { NextResponse } from 'next/server';
 
@@ -35,15 +36,14 @@ export async function POST(req) {
     } else {
       return NextResponse.json({
         success: false,
-        message: 'Something went wrong ! Pleas try again',
+        message: 'Something went wrong ! Please try again',
       });
     }
-    
   } catch (e) {
     console.log(e);
     return NextResponse.json({
       success: false,
-      message: 'Something went wrong ! Pleas try again',
+      message: 'Something went wrong ! Please try again',
     });
   }
 }

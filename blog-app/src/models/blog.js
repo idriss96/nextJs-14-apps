@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const BlogSchema = new mongoose.Schema({
-  title: string,
-  description: string,
+  title: String,
+  description: String,
 });
 
 const Blog = mongoose.models.Blog || mongoose.model('blog', BlogSchema);

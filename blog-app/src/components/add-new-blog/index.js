@@ -1,5 +1,5 @@
 import { Button } from '../ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 
@@ -9,6 +9,7 @@ function AddNewBlog({
   loading,
   setBlogFormData,
   blogFormData,
+  handleSaveBlogData
 }) {
   return (
     <>
@@ -19,6 +20,10 @@ function AddNewBlog({
         open={openBlogDialog}
         onOpenChange={() => {
           setOpenBlogDialog(false);
+          setBlogFormData({
+            title: "",
+            description: "",
+          });
         }}
       >
         <DialogContent className="sm:max-w-[425px]">
@@ -62,6 +67,11 @@ function AddNewBlog({
               />
             </div>
           </div>
+          <DialogFooter>
+            <Button onClick={handleSaveBlogData} type="button">
+                {loading ? "saving changes" : "save changes"}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
