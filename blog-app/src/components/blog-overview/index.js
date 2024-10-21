@@ -49,6 +49,22 @@ function BlogOverview({ blogList }) {
     }
   }
 
+  const handleDeleteBlogByID = async (getCurrentId) => {
+    try {
+      const apiResponse = await fetch(`/api/delete-blog?id=${getCurrentId}`,{
+        method: 'DELETE'
+      })
+
+      const result = await apiResponse.json();
+
+      if(result?.success) router.refresh();
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   return (
     <div className="min-h-screen flex flex-col gap-10 bg-gradient-to-r from-purple-500 to-blue-600 p-6">
       <AddNewBlog
@@ -69,7 +85,7 @@ function BlogOverview({ blogList }) {
                 <CardDescription>{blogItem?.description}</CardDescription>
                 <div className="mt-5 flex gap-5  items-center">
                   <Button>Edit</Button>
-                  <Button>Delete</Button>
+                  <Button onClick={()=> handleDeleteBlogByID(blogItem._id)}>Delete</Button>
                 </div>
               </CardContent>
             </Card>
