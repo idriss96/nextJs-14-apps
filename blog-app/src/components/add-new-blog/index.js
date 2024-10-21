@@ -19,6 +19,8 @@ function AddNewBlog({
   setBlogFormData,
   blogFormData,
   handleSaveBlogData,
+  currentEditBlogID,
+  setCurrentEditBlogID,
 }) {
   return (
     <Fragment>
@@ -33,12 +35,13 @@ function AddNewBlog({
             title: '',
             description: '',
           });
+          setCurrentEditBlogID(null);
         }}
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>
-               Add New Blog
+              {currentEditBlogID ? 'Edit Blog' : 'Add New Blog'}
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">

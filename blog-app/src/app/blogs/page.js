@@ -1,6 +1,6 @@
 import BlogOverview from '@/components/blog-overview';
 
-async function fetchListOfBlogs() {
+const fetchListOfBlogs = async () => {
   try {
     const apiResponse = await fetch('http://localhost:3000/api/get-blogs', {
       method: 'GET',
