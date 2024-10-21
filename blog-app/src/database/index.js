@@ -6,9 +6,8 @@ const connectToDB = async () => {
 
   mongoose
     .connect(connectionUrl)
-    .then(() => console.log('blog database connection is successful')
-    .catch((error) => console.log(error))
-    );
+    .then(() => console.log('blog database connection is successfull'))
+    .catch((error) => console.log(error));
 };
 
 export default connectToDB;
